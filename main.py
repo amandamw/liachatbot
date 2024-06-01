@@ -1,15 +1,19 @@
 from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse  # Import FileResponse
+from fastapi.staticfiles import StaticFiles  # Import StaticFiles
 import db_help
 import basic_help
 
 app = FastAPI()
 
+# Mount static files
+app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
+
 inprogress_orders = {}
 
 @app.get("/")
 async def root():
-    return {"message": "Lia Chatbot"}
+    return FileResponse('frontend/index.html')
 
 @app.post("/")
 async def handle_request(request: Request):
