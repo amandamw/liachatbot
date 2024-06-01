@@ -7,6 +7,9 @@ app = FastAPI()
 
 inprogress_orders = {}
 
+@app.get("/")
+async def root():
+    return {"message": "Lia Chatbot"}
 
 @app.post("/")
 async def handle_request(request: Request):

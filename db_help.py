@@ -1,14 +1,25 @@
+import os
+from dotenv import load_dotenv
 import mysql.connector
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Retrieve database connection values from environment variables
+host = os.getenv('DB_HOST')
+user = os.getenv('DB_USER')
+password = os.getenv('DB_PASSWORD')
+database = os.getenv('DB_NAME')
+
 global cnx
 
 # Establishing the connection globally
 cnx = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="sheno!@31",
-    database="liabot"
+   host=host,
+   user=user,
+   password=password,
+   database=database
 )
-
 
 # Function to call the MySQL stored procedure and insert an order item
 def insert_order_item(food_item, quantity, order_id):
